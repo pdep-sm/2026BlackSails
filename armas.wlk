@@ -23,5 +23,5 @@ object indicesMateriales {
 class Insulto {
   const frase
 
-  method danio(pirata) = frase.words() * pirata.corajeBase() // <= ô_Ô
+  method danio(pirata) = frase.words() * pirata.corajeBase()
 }
