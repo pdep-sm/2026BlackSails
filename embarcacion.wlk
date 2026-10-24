@@ -16,6 +16,7 @@ class Embarcacion {
 
   method poderDeCaniones() = caniones.sum{ c => c.poder() }
 
+  //Pto 2
   method masCorajudo() = tripulacion.max{ t => t.coraje() }
 
   method puedeEntrarEnConflicto(otra) = ubicacion.puedeEntrarEnConflicto(otra.ubicacion())
@@ -52,8 +53,14 @@ class Embarcacion {
     tripulacion.remove(contramaestre)
   }
 
+  method matarMasCorajudos(cantidad) {
+    tripulacion.removeAll(self.masCorajudos(cantidad))
+  }
+
+  method masCorajudos(cantidad) = self.tripulacionOrdenadaPorCoraje().take(cantidad)
+
   method transferirMasCorajudos(cantidad, otra) {
-    const aTransferir = self.tripulacionOrdenadaPorCoraje().take(cantidad)
+    const aTransferir = self.masCorajudos(cantidad)
     tripulacion.removeAll(aTransferir)
     otra.agregarTripulacion(aTransferir)
   }
@@ -79,6 +86,10 @@ class Embarcacion {
     contramaestre.degradar()
     self.ascenderContramaestre()
     tripulacion.add(viejoContramaestre)
+  }
+
+  method envejecerCaniones(cantidadAnios) {
+    caniones.forEach{ canion => canion.envejecer(cantidadAnios) }
   }
 }
 
